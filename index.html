@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=1920, initial-scale=1.0">
 <title>GloBrix</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,26 +20,49 @@
     object-fit: cover;
     display: block;
   }
+
+  #clipLabel {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 4, 30, 0.72);
+    border: 1px solid rgba(196, 165, 255, 0.3);
+    border-radius: 24px;
+    padding: 7px 22px;
+    font-size: 15px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #e8e0ff;
+    text-shadow: 0 1px 12px rgba(120, 60, 255, 0.5);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+  }
 </style>
 </head>
 <body>
 <video id="vid" muted playsinline autoplay></video>
+<div id="clipLabel"></div>
 
 <script>
 const BASE = "https://pub-97d11057786548c6948476edd0bc17eb.r2.dev/";
 
 const CLIPS = [
-  "GamerGirl2.mp4",
-  "GamerGirl4.mp4",
-  "SapphireRoom.mp4",
-  "TarotTrailer.mp4",
+  { file: "GamerGirl2.mp4",   title: "Gamer Girl in Pink"    },
+  { file: "GamerGirl4.mp4",   title: "Gamer Girl Moods"      },
+  { file: "SapphireRoom.mp4", title: "Sapphire Room Flicker" },
+  { file: "TarotTrailer.mp4", title: "Tarot Trailer Vibe"    },
 ];
 
 let current = 0;
-const vid = document.getElementById("vid");
+const vid   = document.getElementById("vid");
+const label = document.getElementById("clipLabel");
 
 function playNext() {
-  vid.src = BASE + CLIPS[current];
+  label.textContent = CLIPS[current].title;
+  vid.src = BASE + CLIPS[current].file;
   vid.play().catch(() => {});
 }
 
